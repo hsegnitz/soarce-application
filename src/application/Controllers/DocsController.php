@@ -15,6 +15,7 @@ class DocsController
 
     /**
      * BaseController constructor.
+     *
      * @param Container $dependcyInjectionContainer
      */
     public function __construct(Container $dependcyInjectionContainer)
@@ -31,9 +32,7 @@ class DocsController
      */
     public function index(Request $request, Response $response, $params): Response
     {
-        $page = $params['page'] ?? 'index';
-        $this->ci->view['activeSubMenu'] = $page;
-        return $this->ci->view->render($response, 'docs/' . $page . '.twig');
+        return $this->ci->view->render($response, 'docs/index.twig');
     }
 
     /**

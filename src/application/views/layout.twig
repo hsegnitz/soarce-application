@@ -43,9 +43,9 @@
         <!-- Logo -->
         <a href="/" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
-            <span class="logo-mini"><b>&lt;!&gt;</b></span>
+            <span class="logo-mini"><b>/!\</b></span>
             <!-- logo for regular state and mobile devices -->
-            <span class="logo-lg"><b>SOARCE</b></span>
+            <span class="logo-lg"><b>SO/!\RCE</b></span>
         </a>
 
         <!-- Header Navbar -->
@@ -100,20 +100,7 @@
                     </ul>
                 </li>
                 <li class="{% if activeMainMenu == "maintenance" %}active{% endif %}"><a href="/maintenance"><i class="fa fa-database"></i> <span>Database Maintenance</span></a></li>
-                <li class="treeview {% if activeMainMenu == "docs" %}active{% endif %}">
-                    <a href="/docs"><i class="fa fa-book"></i> <span>Documentation</span>
-                        <span class="pull-right-container">
-                            <i class="fa fa-angle-left pull-right"></i>
-                        </span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li class="{% if activeSubMenu == "overview"    %}active{% endif %}"><a href="/docs/overview"   ><i class="fa fa-binoculars" ></i> Overview</a></li>
-                        <li class="{% if activeSubMenu == "application" %}active{% endif %}"><a href="/docs/application"><i class="fa fa-laptop"     ></i> Application</a></li>
-                        <li class="{% if activeSubMenu == "plugin"      %}active{% endif %}"><a href="/docs/plugin"     ><i class="fa fa-plug"       ></i> Plugin</a></li>
-                        <li class="{% if activeSubMenu == "license"     %}active{% endif %}"><a href="/docs/license"    ><i class="fa fa-institution"></i> License</a></li>
-                        <li class="{% if activeSubMenu == "credits"     %}active{% endif %}"><a href="/docs/credits"    ><i class="fa fa-list"       ></i> Credits</a></li>
-                    </ul>
-                </li>
+                <li class="{% if activeMainMenu == "docs" %}active{% endif %}"><a href="/docs"><i class="fa fa-book"></i> <span>Documentation</span></a></li>
             </ul>
             <!-- /.sidebar-menu -->
         </section>
