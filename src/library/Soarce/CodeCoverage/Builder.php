@@ -5,8 +5,10 @@ namespace Soarce\CodeCoverage;
 use ReflectionClass;
 use SebastianBergmann\CodeCoverage\CodeCoverage;
 use SebastianBergmann\CodeCoverage\Data\ProcessedCodeCoverageData;
+use SebastianBergmann\CodeCoverage\ProcessedCodeCoverageData as ProcessedCodeCoverageData9;
 use SebastianBergmann\CodeCoverage\Data\RawCodeCoverageData;
-use SebastianBergmann\CodeCoverage\Driver\Driver;
+use SebastianBergmann\CodeCoverage\RawCodeCoverageData as RawCodeCoverageData9;
+use SebastianBergmann\CodeCoverage\Driver\Xdebug3Driver;
 use SebastianBergmann\CodeCoverage\Driver\XdebugDriver;
 use SebastianBergmann\CodeCoverage\Filter;
 use Soarce\Analyzer\Coverage;
@@ -34,6 +36,38 @@ class Builder
             $rawCodeCoverageData = RawCodeCoverageData::fromXdebugWithoutPathCoverage($rawCoverage);
 
             $processed = new ProcessedCodeCoverageData();
+            $processed->initializeUnseenData($rawCodeCoverageData);
+            $processed->markCodeAsExecutedByTestCase('soarce:' . $usecase['name'], $rawCodeCoverageData);
+
+            $codeCoverage = new CodeCoverage(
+                $driver,
+                $filter,
+            );
+
+            $codeCoverage->setData($processed);
+            $primaryCodeCoverage->merge($codeCoverage);
+        }
+
+        return $primaryCodeCoverage;
+    }
+
+    public function getCodeCoverage9(int|string $applicationId): CodeCoverage
+    {
+        $filter = new Filter();
+
+        $ref = new ReflectionClass(Xdebug3Driver::class);
+        $driver = $ref->newInstanceWithoutConstructor();
+        $primaryCodeCoverage = new CodeCoverage(
+            $driver,
+            $filter,
+        );
+
+        foreach ($this->coverageAnalyzer->getUsecases([], [], [$applicationId]) as $usecaseId => $usecase) {
+            $rawCoverage = $this->collectCoverageFromDb($applicationId, $usecaseId);
+
+            $rawCodeCoverageData = RawCodeCoverageData9::fromXdebugWithoutPathCoverage($rawCoverage);
+
+            $processed = new ProcessedCodeCoverageData9();
             $processed->initializeUnseenData($rawCodeCoverageData);
             $processed->markCodeAsExecutedByTestCase('soarce:' . $usecase['name'], $rawCodeCoverageData);
 

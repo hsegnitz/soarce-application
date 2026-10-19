@@ -149,16 +149,22 @@ class CoverageController extends WebApplicationController
     {
         $codeCoverageBuilder = $this->container->get(Builder::class);
 
-        $coverage = $codeCoverageBuilder->getCodeCoverage($args['application']);
 
         $queryParams = $request->getQueryParams();
         $version = $queryParams['version'] ?? 12;
 
         switch ($version) {
             case 6:
+                $coverage = $codeCoverageBuilder->getCodeCoverage($args['application']);
                 $out = $codeCoverageBuilder->buildV6($coverage, $args['application']);
                 break;
+            case 9:
+                $coverage = $codeCoverageBuilder->getCodeCoverage9($args['application']);
+                $php = new PHP();
+                $out = $php->process($coverage);
+                break;
             case 12:
+                $coverage = $codeCoverageBuilder->getCodeCoverage($args['application']);
                 $php = new PHP();
                 $out = $php->process($coverage);
                 break;
